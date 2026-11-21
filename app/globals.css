@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #111111;
+  --color-graphite: #3d3d3d;
+  --color-stone: #767676;
+  --color-mist: #a8a8a8;
+  --color-line: #e5e5e5;
+  --color-haze: #f4f4f2;
+  --color-paper: #ffffff;
+  --color-danger: #b42318;
+  --font-display: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, serif;
+  --font-sans: "Inter Tight Variable", "Inter Tight", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+::selection { background: #111; color: #fff; }
+
+/* Small editorial labels */
+.label { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; }
+
+/* Underline that draws in on hover */
+.link-line { background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .45s var(--ease-editorial); padding-bottom: 2px; }
+.link-line:hover, .link-line:focus-visible { background-size: 100% 1px; }
+.link-static { background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat; padding-bottom: 2px; transition: opacity .3s; }
+.link-static:hover { opacity: .55; }
+
+/* Scroll reveal */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .9s var(--ease-editorial), transform .9s var(--ease-editorial); }
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Slow image zoom on hover */
+.zoom img { transition: transform 1.4s var(--ease-editorial); }
+.zoom:hover img { transform: scale(1.025); }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes fade-in { from { opacity: 0; transform: translateY(6px); } }
+.anim-fade-in { animation: fade-in .35s var(--ease-editorial) both; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .zoom img { transition: none; }
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}
